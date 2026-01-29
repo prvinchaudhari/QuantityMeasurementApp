@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="26fbc03b-12f4-468f-bb67-140ce53cbb06" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="38sjOlWzkeY05y8Xti0PJf1S7Md" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.QuantityMeasureApp.executor": "Run",
+    "JUnit.QuantityMeasureAppTest.executor": "Coverage",
+    "JUnit.QuantityMeasureAppTest.testFeetEquality_differentClass.executor": "Run",
+    "JUnit.QuantityMeasureAppTest.testFeetEquality_differentValue.executor": "Run",
+    "JUnit.QuantityMeasureAppTest.testFeetEquality_nullComparison.executor": "Run",
+    "JUnit.QuantityMeasureAppTest.testFeetEquality_sameReference.executor": "Run",
+    "JUnit.QuantityMeasureAppTest.testFeetEquality_sameValue.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "last_opened_file_path": "C:/Users/pr20409899/Desktop/Developement/QuantityMeasurementApp"
+  }
+}]]></component>
+  <component name="RunManager" selected="Application.QuantityMeasureApp">
+    <configuration name="QuantityMeasureApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="QuantityMeasureApp" />
+      <module name="QuantityMeasureApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="QuantityMeasureAppTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="QuantityMeasureApplication" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="QuantityMeasureAppTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="QuantityMeasureAppTest.testFeetEquality_differentClass" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="QuantityMeasureApplication" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="QuantityMeasureAppTest" />
+      <option name="METHOD_NAME" value="testFeetEquality_differentClass" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="QuantityMeasureAppTest.testFeetEquality_nullComparison" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="QuantityMeasureApplication" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="QuantityMeasureAppTest" />
+      <option name="METHOD_NAME" value="testFeetEquality_nullComparison" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="QuantityMeasureAppTest.testFeetEquality_sameReference" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="QuantityMeasureApplication" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="QuantityMeasureAppTest" />
+      <option name="METHOD_NAME" value="testFeetEquality_sameReference" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.QuantityMeasureApp" />
+        <item itemvalue="JUnit.QuantityMeasureAppTest.testFeetEquality_nullComparison" />
+        <item itemvalue="JUnit.QuantityMeasureAppTest" />
+        <item itemvalue="JUnit.QuantityMeasureAppTest.testFeetEquality_sameReference" />
+        <item itemvalue="JUnit.QuantityMeasureAppTest.testFeetEquality_differentClass" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="26fbc03b-12f4-468f-bb67-140ce53cbb06" name="Changes" comment="" />
+      <created>1769595142679</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1769595142679</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/QuantityMeasurementApp$QuantityMeasureAppTest.ic" NAME="QuantityMeasureAppTest Coverage Results" MODIFIED="1769677015085" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+  </component>
+</project>
