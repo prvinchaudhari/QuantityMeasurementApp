@@ -3,35 +3,26 @@ import java.util.Scanner;
 
 public class QuantityMeasureApp {
 
-    public static void demonstrateFeetEquality(){
-        Length feet1 = new Length(1.0, Length.LengthUnit.FEET);
-        Length feet2 = new Length(2.0, Length.LengthUnit.FEET);
-        Length feet3 = new Length(1.0, Length.LengthUnit.FEET);
-        System.out.println("Feet Both Object Value is :- "+(feet1.equals(feet2)));
-        System.out.println("Feet Both Object Value is :- "+(feet1.equals(feet3)));
-    }
-
-    public static void demonstrateInchesEquality(){
-        Length inches1 = new Length(12.0, Length.LengthUnit.INCHES);
-        Length inches2 = new Length(24.0, Length.LengthUnit.INCHES);
-        Length inches3 = new Length(12.0, Length.LengthUnit.INCHES);
-        System.out.println("Inches Both Object Value is :- "+(inches1.equals(inches2)));
-        System.out.println("Inches Both Object Value is :- "+(inches1.equals(inches3)));
-
-    }
-    public static void demonstrateFeetInchesEquality(){
-        Length inches1 = new Length(12.0, Length.LengthUnit.INCHES);
-        Length inches2 = new Length(22.0, Length.LengthUnit.INCHES);
-        Length feet1 = new Length(1.0, Length.LengthUnit.FEET);
-
-        System.out.println("Both Feet and Inches Object Value is :- "+(inches1.equals(feet1)));
-        System.out.println("Both Feet and Inches Object Value is :- "+(inches2.equals(feet1)));
-
+    public static boolean demonstrateLengthComparison(double value1, Length.LengthUnit unit1, double value2, Length.LengthUnit unit2) {
+        Length f = new Length(value1,unit1);
+        Length f1 = new Length(value2,unit2);
+        return f.equals(f1);
     }
 
     public static void main(String[] args) {
-        demonstrateFeetEquality();
-        demonstrateInchesEquality();
-        demonstrateFeetInchesEquality();
+        //Demonstrate Feet and Inches Comparison
+        System.out.println(demonstrateLengthComparison(1.0, Length.LengthUnit.FEET, 12.0, Length.LengthUnit.INCHES));
+
+        //Demonstrate Yards and Inches Comparison
+        System.out.println(demonstrateLengthComparison(1.0, Length.LengthUnit.YARDS, 36.0, Length.LengthUnit.INCHES));
+
+        //Demonstrate Centimeters and Inches Comparison
+        System.out.println(demonstrateLengthComparison(100.0, Length.LengthUnit.CENTIMETERS, 39.37010, Length.LengthUnit.INCHES));
+
+        //Demonstrate Feet and Yards Comparison
+        System.out.println(demonstrateLengthComparison(3.0, Length.LengthUnit.FEET, 1.0, Length.LengthUnit.YARDS));
+
+        //Demonstrate Centimeters and Feet Comparison
+        System.out.println(demonstrateLengthComparison(30.48, Length.LengthUnit.CENTIMETERS, 12.0, Length.LengthUnit.FEET));
     }
 }

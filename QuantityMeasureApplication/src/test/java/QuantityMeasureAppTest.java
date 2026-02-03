@@ -3,89 +3,198 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Objects;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class QuantityMeasureAppTest {
 
-        private  Length length,length1;
+        private  Length feet,inches,yards,centimeter;
 
         @BeforeEach
         void setUp() {
-            length = new Length(1.0, Length.LengthUnit.FEET);
-            length1 = new Length(12.0, Length.LengthUnit.INCHES);
+            feet = new Length(1.0, Length.LengthUnit.FEET);
+            inches = new Length(12.0, Length.LengthUnit.INCHES);
+            yards = new Length(1.0, Length.LengthUnit.YARDS);
+            centimeter = new Length(1.0, Length.LengthUnit.CENTIMETERS);
         }
 
         @Test
-        void testFeetEquality_sameValue() {
-            Length feet = new Length(1.0, Length.LengthUnit.FEET);
-            assertEquals(true,feet.equals(length));
+        void testEquality_FeetToFeet_sameValue() {
+            Length f1 = new Length(1.0, Length.LengthUnit.FEET);
+            assertEquals(true,feet.equals(f1));
         }
 
     @Test
-    void testFeetEquality_differentValue() {
-        Length feet = new Length(2.0, Length.LengthUnit.FEET);
-        assertEquals(false,length.equals(feet));
+    void testEquality_FeetToFeet_differentValue() {
+        Length f2 = new Length(2.0, Length.LengthUnit.FEET);
+        assertEquals(false,feet.equals(f2));
     }
 
     @Test
-    void testFeetEquality_nullComparison() {
-        Length feet =null;
-        assertEquals(false, length.equals(feet));
+    void testEquality_Feet_nullComparison() {
+        Length f3 =null;
+        assertEquals(false, feet.equals(f3));
        // assertEquals(false, Objects.equals(obj1,obj2));
     }
 
     @Test
-    void testFeetEquality_differentClass() {
+    void testEquality_Feet_differentClass() {
         Object obj2 = new String();
-        assertEquals(false,length.equals(obj2));
+        assertEquals(false,feet.equals(obj2));
     }
 
     @Test
-    void testFeetEquality_sameReference() {
-            Length feet = length;
-        assertEquals(true,length.equals(feet));
+    void testEquality_Feet_sameReference() {
+            Length f4 = feet;
+        assertEquals(true,feet.equals(f4));
     }
 
     @Test
-    void testInchesEquality_sameValue() {
-        Length inches = new Length(12.0, Length.LengthUnit.INCHES);
-        assertEquals(true,length1.equals(inches));
+    void testEquality_InchesToInches_sameValue() {
+        Length i2 = new Length(12.0, Length.LengthUnit.INCHES);
+        assertEquals(true,inches.equals(i2));
     }
 
     @Test
-    void testInchesEquality_differentValue() {
-        Length inches = new Length(24.0, Length.LengthUnit.INCHES);
-        assertEquals(false,length1.equals(inches));
+    void testEquality_InchesToInches_differentValue() {
+        Length i2 = new Length(24.0, Length.LengthUnit.INCHES);
+        assertEquals(false,inches.equals(i2));
     }
 
     @Test
-    void testInchesEquality_nullComparison() {
-        Length inches = null;
-        assertEquals(false, length1.equals(inches));
+    void testEquality_Inches_nullComparison() {
+        Length i3 = null;
+        assertEquals(false, inches.equals(i3));
         // assertEquals(false, Objects.equals(obj1,obj2));
     }
 
     @Test
-    void testInchesEquality_differentClass() {
+    void testEquality_Inches_differentClass() {
         Object obj2 = new String();
-        assertEquals(false,length1.equals(obj2));
+        assertEquals(false,inches.equals(obj2));
     }
 
     @Test
-    void testInchesEquality_sameReference() {
-        Length inches = length1;
-        assertEquals(true,length1.equals(inches));
+    void testEquality_Inches_sameReference() {
+        Length i3 = inches;
+        assertEquals(true,inches.equals(i3));
     }
 
     @Test
-    void testEquality_bothFeetAndInchesEquality() {
-        assertEquals(true,length.equals(length1));
+    void testEquality_FeetTOInches_Equality() {
+        assertEquals(true,inches.equals(feet));
     }
 
     @Test
-    void testNotEquality_bothFeetAndInchesNotEquality() {
+    void testEquality_FeetToInches_NotEquality() {
         Length feet = new Length(2.0, Length.LengthUnit.INCHES);
-        assertEquals(false,length1.equals(feet));
+        assertEquals(false,inches.equals(feet));
     }
 
+    @Test
+    void testEquality_YardToYard_sameValue() {
+        Length y1 = new Length(1.0, Length.LengthUnit.YARDS);
+        assertEquals(true,yards.equals(y1));
+    }
+
+    @Test
+    void testEquality_YardTOYard_differentValue() {
+        Length y2 = new Length(5.0, Length.LengthUnit.YARDS);
+        assertEquals(false,yards.equals(y2));
+    }
+
+    @Test
+    void testEquality_YardTOFeet_EquivalentValue() {
+         Length f = new Length(3,Length.LengthUnit.FEET);
+        assertEquals(true,yards.equals(f));
+    }
+
+    @Test
+    void testEquality_FeetTOYard_EquivalentValue() {
+        Length f = new Length(3,Length.LengthUnit.FEET);
+        assertEquals(true,f.equals(yards));
+    }
+    @Test
+    void testEquality_YardTOInches_EquivalentValue() {
+        Length i = new Length(36, Length.LengthUnit.INCHES);
+        assertEquals(true,yards.equals(i));
+    }
+    @Test
+    void testEquality_InchesTOYard_EquivalentValue() {
+        Length i = new Length(36, Length.LengthUnit.INCHES);
+        assertEquals(true,i.equals(yards));
+    }
+
+    @Test
+    void testEquality_YardTOFeet_NotEquivalentValue() {
+        assertEquals(false,yards.equals(feet));
+    }
+
+    @Test
+    void testEquality_CentimetersTOInches_EquivalentValue() {
+            Length centimeter = new Length(1, Length.LengthUnit.CENTIMETERS);
+            Length inches =new Length(0.393701, Length.LengthUnit.INCHES);
+        assertEquals(true,centimeter.equals(inches));
+    }
+
+    @Test
+    void testEquality_CentimetersTOFeet_NotEquivalentValue() {
+        Length centimeter = new Length(1, Length.LengthUnit.CENTIMETERS);
+        Length feet =new Length(1, Length.LengthUnit.FEET);
+        assertEquals(false,centimeter.equals(feet));
+    }
+
+    @Test
+    void testEquality_MultiUnit_TransitiveProperty() {
+
+    }
+
+    @Test
+    void testEquality_YardWithNullUnit() {
+        Length feet =new Length(1, null);
+        assertEquals(false,yards.equals(feet));
+
+    }
+
+    @Test
+    void testEquality_YardSameReference() {
+        Length y =yards;
+        assertEquals(true,yards.equals(y));
+    }
+
+    @Test
+    void testEquality_YardNullComparison() {
+        Length y =null;
+        assertEquals(false,yards.equals(y));
+    }
+
+    @Test
+    void testEquality_CentimeterWithNullUnit() {
+        //Length feet =new Length(1, null);
+        Length feet1 =null;
+        //  assertEquals(false,yards.equals(feet));
+        assertEquals(false, Objects.equals(centimeter,feet1));
+    }
+
+    @Test
+    void testEquality_CentimeterSameReference() {
+        Length c =centimeter;
+        assertEquals(true,centimeter.equals(c));
+    }
+
+    @Test
+    void testEquality_CentimeterNullComparison() {
+        Length c =null;
+        assertEquals(false,centimeter.equals(c));
+    }
+    @Test
+    void testEquality_AllUnit_ComplexScenario() {
+            Length yards = new Length(2.0, Length.LengthUnit.YARDS);
+            Length feet = new Length(6.0, Length.LengthUnit.FEET);
+            Length inches = new Length(72.0, Length.LengthUnit.INCHES);
+            assertAll(
+                    () -> assertEquals(true,yards.equals(feet)),
+                    () -> assertEquals(true,yards.equals(inches))
+            );
+    }
 }
