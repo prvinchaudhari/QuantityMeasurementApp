@@ -2,12 +2,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Objects;
+import java.util.function.Supplier;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class QuantityMeasureAppTest {
 
+    private static final double EPS = 1e-6;
         private  Length feet,inches,yards,centimeter;
 
         @BeforeEach
@@ -197,4 +198,54 @@ public class QuantityMeasureAppTest {
                     () -> assertEquals(true,yards.equals(inches))
             );
     }
+
+    @Test
+    void testEquality_FeetTOInches() {
+        Length f = new Length(1, Length.LengthUnit.FEET);
+        Length i = QuantityMeasureApp.demonstrateLengthConversion(f, Length.LengthUnit.INCHES);
+        assertEquals(12.0,i.value());
+    }
+
+    @Test
+    void testEquality_InchesTOFeet() {
+        Length i = new Length(24, Length.LengthUnit.INCHES);
+        Length f = QuantityMeasureApp.demonstrateLengthConversion(i, Length.LengthUnit.FEET);
+        assertEquals(2.0,f.value());
+    }
+
+    @Test
+    void testEquality_YardsTOInches() {
+        Length y = new Length(1.0, Length.LengthUnit.YARDS);
+        Length i = QuantityMeasureApp.demonstrateLengthConversion(y, Length.LengthUnit.INCHES);
+        assertEquals(36.0,i.value());
+    }
+
+    @Test
+    void testEquality_CentimeterTOInches() {
+        Length c = new Length(2.54, Length.LengthUnit.CENTIMETERS);
+        Length i = QuantityMeasureApp.demonstrateLengthConversion(c, Length.LengthUnit.INCHES);
+        assertEquals(1.0,i.value());
+    }
+
+    @Test
+    void testEquality_FeetTOYard() {
+        Length f = new Length(6, Length.LengthUnit.FEET);
+        Length y = QuantityMeasureApp.demonstrateLengthConversion(f, Length.LengthUnit.YARDS);
+        assertEquals(2.0,y.value());
+    }
+
+    @Test
+    void testEquality_NegativeValue() {
+        Length f = new Length(-1.0, Length.LengthUnit.FEET);
+        Length y = QuantityMeasureApp.demonstrateLengthConversion(f, Length.LengthUnit.INCHES);
+        assertEquals(-12.0,y.value());
+    }
+
+    @Test
+    void testEquality_NaNOrInfinite_Throws() {
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                () -> new Length(Double.NaN, Length.LengthUnit.FEET));
+        assertTrue(ex.getMessage().toLowerCase().contains("finite"));
+    }
+
 }

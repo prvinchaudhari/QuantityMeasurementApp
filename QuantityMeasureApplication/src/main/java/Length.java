@@ -1,3 +1,6 @@
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.InputMismatchException;
 import java.util.Objects;
 import java.util.Scanner;
@@ -25,11 +28,19 @@ public class Length {
         }
 
         private double toBaseValue(double value) {
-            return value * conversionFactor;
+            double raw = value * conversionFactor; // compute in base unit (e.g., meters)
+            return BigDecimal.valueOf(raw)
+                    .setScale(2, RoundingMode.HALF_UP) // 2 decimal places
+                    .doubleValue();
+
+            //return value * conversionFactor;
         }
     }
 
     public Length(double value, LengthUnit unit) {
+        if (Double.isNaN(value) || Double.isInfinite(value)) {
+            throw new IllegalArgumentException("value must be a finite number");
+        }
         this.value = value;
         this.unit = unit;
     }
@@ -41,6 +52,28 @@ public class Length {
     public boolean compare(Length thatLength) {
         return Double.compare(this.convertToBaseUnit(), thatLength.convertToBaseUnit()) == 0;
     }
+    public double value() { return value; }
+
+    public Length convertTo(LengthUnit targetUnit){
+
+        if (targetUnit == null) {
+            throw new IllegalArgumentException("targetUnit must not be null");
+        }
+       /* if (this.unit == targetUnit) {
+            // same unit → return this instance if your class is immutable,
+            // or create a copy if you prefer: return new Length(this.value, this.unit);
+            return this;
+        }*/
+        // Convert current value to baseUnit, then baseUnit to target unit
+        double result = this.value * this.convertToBaseUnit();
+        double targetValue = result / targetUnit.toBaseValue(value);
+        return  new Length(targetValue,targetUnit);
+    }
+
+    @Override
+    public String toString() {
+        return ""+value;
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -51,11 +84,9 @@ public class Length {
         if (obj == null) {
             return false;
         }
-
         if (getClass() != obj.getClass()) {
             return false;
         }
-
         Length length = (Length) obj;
         if (length.unit == null)
             return false;
@@ -63,32 +94,10 @@ public class Length {
     }
 
     public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
-        double first_Value,second_Value;
-        String first_Unit,second_Unit;
-
-        LengthUnit unit1,unit2;
-
-        System.out.println("Please Enter first numeric value");
-        if(!scan.hasNextDouble())
-            throw new InputMismatchException("Please provide numeric value only.");
-        first_Value=scan.nextDouble();
-        System.out.println("Please Enter Unit");
-        first_Unit=scan.next();
-        unit1 = LengthUnit.valueOf(first_Unit);
-
-        System.out.println("Please Enter Second numeric value");
-        if(!scan.hasNextDouble())
-            throw new InputMismatchException("Please provide numeric value only.");
-        second_Value= scan.nextDouble();
-        System.out.println("Please Enter Unit");
-        second_Unit=scan.next();
-        unit2 = LengthUnit.valueOf(second_Unit);
-
-        Length length1 = new Length(first_Value, unit1);
-        Length length2 = new Length(second_Value, unit2);
-
-        System.out.println("Both Unit Object Value is :- "+(length1.equals(length2)));
-
+        Length feet = new Length(3.0,LengthUnit.FEET);
+        Length inches = feet.convertTo(LengthUnit.INCHES);
+        Length yards = feet.convertTo(LengthUnit.YARDS);
+        System.out.println(inches);
+        System.out.println(yards);
     }
 }
