@@ -1,53 +1,77 @@
 
 public class QuantityMeasureApp {
 
-    public static boolean demonstrateLengthComparison(double value1, Length.LengthUnit unit1, double value2, Length.LengthUnit unit2) {
-        Length f = new Length(value1,unit1);
-        Length f1 = new Length(value2,unit2);
-        return f.equals(f1);
+    public static boolean demonstrateLengthEquality(Length length1, Length length2) {
+        return length1 != null && length1.equals(length2);
+    }
+
+    public static boolean demonstrateLengthComparison(double value1, Length.LengthUnit unit1,double value2, Length.LengthUnit unit2) {
+        Length length1 = new Length(value1,unit1);
+        Length length2 = new Length(value2,unit2);
+        return length1.equals(length2);
     }
 
     public static Length demonstrateLengthConversion(double value, Length.LengthUnit fromUnit, Length.LengthUnit toUnit) {
-        Length f=new Length(value,fromUnit);
-        return f.convertTo(toUnit);
-    }
-
-    public static Length demonstrateLengthConversion(Length length, Length.LengthUnit toUnit) {
-        if (length == null) {
-            throw new IllegalArgumentException("length must not be null");
-        }
-        if (toUnit == null) {
-            throw new IllegalArgumentException("toUnit must not be null");
-        }
+        Length length=new Length(value,fromUnit);
         return length.convertTo(toUnit);
     }
 
-
+    public static Length demonstrateLengthConversion(Length length, Length.LengthUnit toUnit) {
+        if (length == null || toUnit == null) {
+            throw new IllegalArgumentException("length and target unit are required");
+        }
+        return length.convertTo(toUnit);
+    }
+    /**
+     * Demonstrate addition of second QuantityLength to first QuantityLength.
+     */
+    public static Length demonstrateLengthAddition(Length length1, Length length2) {
+        if (length1 == null || length2 == null) {
+            throw new IllegalArgumentException("Both lengths are required");
+        }
+        return length1.add(length2); // result in unit of first operand
+    }
 
     public static void main(String[] args) {
+        System.out.println(demonstrateLengthAddition(
+                new Length(1.0, Length.LengthUnit.FEET),
+                new Length(2.0, Length.LengthUnit.FEET)
+        )); // Quantity(3.0, FEET)
 
-        System.out.println(
-        demonstrateLengthConversion(1.0, Length.LengthUnit.FEET, Length.LengthUnit.INCHES));
+        System.out.println(demonstrateLengthAddition(
+                new Length(1.0, Length.LengthUnit.FEET),
+                new Length(12.0, Length.LengthUnit.INCHES)
+        )); // Quantity(2.0, FEET)
 
-        System.out.println(
-                demonstrateLengthConversion(new Length(3.0, Length.LengthUnit.FEET), Length.LengthUnit.YARDS));
+        System.out.println(demonstrateLengthAddition(
+                new Length(12.0, Length.LengthUnit.INCHES),
+                new Length(1.0, Length.LengthUnit.FEET)
+        )); // Quantity(24.0, INCHES)
 
-      /*  System.out.println(
-                demonstrateLengthConversion(new Length(3.0, Length.LengthUnit.FEET), null));
-*/
-        //Demonstrate Feet and Inches Comparison
-        System.out.println(demonstrateLengthComparison(1.0, Length.LengthUnit.FEET, 12.0, Length.LengthUnit.INCHES));
+        System.out.println(demonstrateLengthAddition(
+                new Length(1.0, Length.LengthUnit.YARDS),
+                new Length(3.0, Length.LengthUnit.FEET)
+        )); // Quantity(2.0, YARDS)
 
-        //Demonstrate Yards and Inches Comparison
-        System.out.println(demonstrateLengthComparison(1.0, Length.LengthUnit.YARDS, 36.0, Length.LengthUnit.INCHES));
+        System.out.println(demonstrateLengthAddition(
+                new Length(36.0, Length.LengthUnit.INCHES),
+                new Length(1.0, Length.LengthUnit.YARDS)
+        )); // Quantity(72.0, INCHES)
 
-        //Demonstrate Centimeters and Inches Comparison
-        System.out.println(demonstrateLengthComparison(100.0, Length.LengthUnit.CENTIMETERS, 39.37010, Length.LengthUnit.INCHES));
+        System.out.println(demonstrateLengthAddition(
+                new Length(2.54, Length.LengthUnit.CENTIMETERS),
+                new Length(1.0, Length.LengthUnit.INCHES)
+        )); // Quantity(~5.08, CENTIMETERS)
 
-        //Demonstrate Feet and Yards Comparison
-        System.out.println(demonstrateLengthComparison(3.0, Length.LengthUnit.FEET, 1.0, Length.LengthUnit.YARDS));
+        System.out.println(demonstrateLengthAddition(
+                new Length(5.0, Length.LengthUnit.FEET),
+                new Length(0.0, Length.LengthUnit.INCHES)
+        )); // Quantity(5.0, FEET)
 
-        //Demonstrate Centimeters and Feet Comparison
-        System.out.println(demonstrateLengthComparison(30.48, Length.LengthUnit.CENTIMETERS, 1.0, Length.LengthUnit.FEET));
+        System.out.println(demonstrateLengthAddition(
+                new Length(5.0, Length.LengthUnit.FEET),
+                new Length(-2.0, Length.LengthUnit.FEET)
+        )); // Quantity(3.0, FEET)
     }
+
 }
