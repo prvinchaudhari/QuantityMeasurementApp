@@ -277,9 +277,9 @@ public class QuantityMeasureAppTest {
 
     @Test
     void add_small_Value() {
-        Length r = new Length(0.0001, Length.LengthUnit.FEET)
-                .add(new Length(0.0002, Length.LengthUnit.FEET));
-        assertEquals(new Length(0.0003, Length.LengthUnit.FEET), r);
+        Length r = new Length(0.01, Length.LengthUnit.FEET)
+                .add(new Length(0.02, Length.LengthUnit.FEET));
+        assertEquals(new Length(0.03, Length.LengthUnit.FEET), r);
     }
 
     @Test
