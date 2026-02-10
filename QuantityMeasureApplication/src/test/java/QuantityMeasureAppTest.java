@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.nio.file.FileAlreadyExistsException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class QuantityMeasureAppTest {
@@ -255,6 +257,15 @@ public class QuantityMeasureAppTest {
     }
 
     @Test
+    void add_commutativity() {
+        Length r = new Length(1.0, Length.LengthUnit.FEET)
+                .add(new Length(12.0, Length.LengthUnit.INCHES));
+        Length r1 = new Length(12.0, Length.LengthUnit.INCHES)
+                .add(new Length(1.0, Length.LengthUnit.FEET));
+        assertEquals(r,r1);
+    }
+
+    @Test
     void add_identity_and_negative() {
         Length identity = new Length(0.0, Length.LengthUnit.INCHES);
         Length r1 = new Length(5.0, Length.LengthUnit.FEET).add(identity.convertTo(Length.LengthUnit.FEET));
@@ -288,5 +299,105 @@ public class QuantityMeasureAppTest {
                 .add(new Length(1e6, Length.LengthUnit.FEET));
         assertEquals(new Length(2e6, Length.LengthUnit.FEET), r);
     }
+
+    @Test
+    void testAddition_ExplicitTargetUnit_feet(){
+        Length f = new Length(1.0, Length.LengthUnit.FEET).
+                add(new Length(12.0, Length.LengthUnit.INCHES), Length.LengthUnit.FEET);
+        assertEquals(new Length(2.0, Length.LengthUnit.FEET),f);
+    }
+
+    @Test
+    void testAddition_ExplicitTargetUnit_inches(){
+        Length i = new Length(1.0, Length.LengthUnit.FEET).
+                add(new Length(12.0, Length.LengthUnit.INCHES), Length.LengthUnit.INCHES);
+        assertEquals(new Length(24.0, Length.LengthUnit.INCHES),i);
+    }
+
+    @Test
+    void testAddition_ExplicitTargetUnit_yards(){
+        Length y = new Length(1.0, Length.LengthUnit.FEET).
+                add(new Length(12.0, Length.LengthUnit.INCHES), Length.LengthUnit.YARDS);
+        assertEquals(new Length(0.67, Length.LengthUnit.YARDS),y);
+    }
+
+    @Test
+    void testAddition_ExplicitTargetUnit_centimeter(){
+        Length c = new Length(1.0, Length.LengthUnit.INCHES).
+                add(new Length(1.0, Length.LengthUnit.INCHES), Length.LengthUnit.CENTIMETERS);
+        assertEquals(new Length(5.08, Length.LengthUnit.CENTIMETERS),c);
+    }
+
+    @Test
+    void testAddition_ExplicitTargetUnit_SameAsFirstOperand(){
+        Length y = new Length(2.0, Length.LengthUnit.YARDS).
+                add(new Length(3.0, Length.LengthUnit.FEET), Length.LengthUnit.YARDS);
+        assertEquals(new Length(3.0, Length.LengthUnit.YARDS),y);
+    }
+
+    @Test
+    void testAddition_ExplicitTargetUnit_SameAsSecondOperand(){
+        Length f = new Length(2.0, Length.LengthUnit.YARDS).
+                add(new Length(3.0, Length.LengthUnit.FEET), Length.LengthUnit.FEET);
+        assertEquals(new Length(9.0, Length.LengthUnit.FEET),f);
+    }
+
+    @Test
+    void testAddition_ExplicitTargetUnit_Commutativity(){
+        Length l1 = new Length(1.0, Length.LengthUnit.FEET).
+                add(new Length(12.0, Length.LengthUnit.INCHES), Length.LengthUnit.YARDS);
+        Length l2= new Length(12.0, Length.LengthUnit.INCHES).
+                add(new Length(1.0, Length.LengthUnit.FEET), Length.LengthUnit.YARDS);
+
+        assertEquals(true,l1.equals(l2));
+    }
+
+    @Test
+    void testAddition_ExplicitTargetUnit_withZero(){
+        Length l1 = new Length(5.0, Length.LengthUnit.FEET).
+                add(new Length(0.0, Length.LengthUnit.INCHES), Length.LengthUnit.YARDS);
+        assertEquals(new Length(1.67, Length.LengthUnit.YARDS),l1);
+    }
+
+    @Test
+    void testAddition_ExplicitTargetUnit_NegativeValue(){
+        Length l1 = new Length(5.0, Length.LengthUnit.FEET).
+                add(new Length(-2.0, Length.LengthUnit.FEET), Length.LengthUnit.INCHES);
+        assertEquals(new Length(36.0, Length.LengthUnit.INCHES),l1);
+    }
+    @Test
+    void testAddition_ExplicitTargetUnit_TargetNullUnit(){
+        Length l1 = new Length(1.0, Length.LengthUnit.FEET);
+                //.add(new Length(12.0, Length.LengthUnit.INCHES), null);
+        IllegalArgumentException ex = assertThrows(
+                IllegalArgumentException.class,
+                () -> l1.add(new Length(12.0, Length.LengthUnit.INCHES), null)
+        );
+        assertEquals("Target unit cannot be null", ex.getMessage());
+    }
+
+    @Test
+    void testAddition_ExplicitTargetUnit_LargeToSmallScale(){
+        Length l1 = new Length(1000.0, Length.LengthUnit.FEET).
+                add(new Length(500.0, Length.LengthUnit.FEET), Length.LengthUnit.INCHES);
+        assertEquals(new Length(18000.0, Length.LengthUnit.INCHES),l1);
+    }
+
+    @Test
+    void testAddition_ExplicitTargetUnit_SmallToLargeScale(){
+        Length l1 = new Length(12.0, Length.LengthUnit.INCHES).
+                add(new Length(12.0, Length.LengthUnit.INCHES), Length.LengthUnit.YARDS);
+        assertEquals(new Length(0.67, Length.LengthUnit.YARDS),l1);
+    }
+
+    @Test
+    void testAddition_ExplicitTargetUnit_AllUnitCombination(){
+        Length l1 = new Length(1.0, Length.LengthUnit.FEET)
+                .add(new Length(12.0, Length.LengthUnit.INCHES),Length.LengthUnit.CENTIMETERS)
+                        .add(new Length(1.0, Length.LengthUnit.CENTIMETERS),Length.LengthUnit.YARDS);
+        assertEquals(new Length(0.68, Length.LengthUnit.YARDS),l1);
+    }
+    
+
 
 }

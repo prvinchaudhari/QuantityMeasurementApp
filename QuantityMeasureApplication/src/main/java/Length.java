@@ -130,6 +130,30 @@ public class Length {
         return new Length(resultValue, this.unit);
     }
 
+    public Length add(Length length, LengthUnit targetUnit){
+        if (length == null) {
+            throw new IllegalArgumentException("Other length cannot be null");
+        }
+        if (targetUnit == null) {
+            throw new IllegalArgumentException("Target unit cannot be null");
+        }
+        return addAndConvert(length,targetUnit);
+    }
+
+    private Length addAndConvert(Length length,LengthUnit targetUnit){
+        // Convert both to base unit (inches)
+        double thisInInches = this.unit.toInches(this.value);
+        double otherInInches = length.unit.toInches(length.value);
+
+        // Add
+        double sumInInches = thisInInches + otherInInches;
+
+        // Convert to target unit
+        double resultValue = targetUnit.fromInches(sumInInches);
+        resultValue = Math.round(resultValue * 100.0) / 100.0;
+        return new Length(resultValue, targetUnit);
+    }
+
     public static void main(String[] args) {
         Length feet = new Length(3.0,LengthUnit.FEET);
         Length inches = feet.convertTo(LengthUnit.INCHES);

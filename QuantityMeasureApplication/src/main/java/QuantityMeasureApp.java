@@ -32,6 +32,13 @@ public class QuantityMeasureApp {
         return length1.add(length2); // result in unit of first operand
     }
 
+    public static Length demonstrateLengthAddition(Length length1, Length length2, Length.LengthUnit targetUnit) {
+        if (length1 == null || length2 == null || targetUnit == null) {
+            throw new IllegalArgumentException("Both lengths are required");
+        }
+        return length1.add(length2,targetUnit);
+    }
+
     public static void main(String[] args) {
         System.out.println(demonstrateLengthAddition(
                 new Length(1.0, Length.LengthUnit.FEET),
@@ -72,6 +79,11 @@ public class QuantityMeasureApp {
                 new Length(5.0, Length.LengthUnit.FEET),
                 new Length(-2.0, Length.LengthUnit.FEET)
         )); // Quantity(3.0, FEET)
+
+        System.out.println(demonstrateLengthAddition(
+                new Length(1.0, Length.LengthUnit.FEET),
+                new Length(12.0, Length.LengthUnit.INCHES), Length.LengthUnit.YARDS
+        )); //// Quantity(2.0, FEET)
     }
 
 }
