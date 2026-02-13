@@ -27,8 +27,8 @@ public enum LengthUnit {
         //return Math.round(fromInches(value) * 100.0) / 100.0;
     }
 
-    public double convertFromUnit(double basevalue) {
-        double fromUnit = basevalue / this.getConversionFactor();
+    public double convertFromUnit(double baseValue) {
+        double fromUnit = baseValue / this.getConversionFactor();
         return Math.round(fromUnit * 100.0) / 100.0;
        // return Math.round(fromInches(basevalue) * 100.0) / 100.0;   // rounding to 2 decimals
     }

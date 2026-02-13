@@ -1,6 +1,44 @@
 
 public class QuantityMeasureApp {
 
+    public static boolean demonstrateWeightEquality(Weight weight1, Weight weight2) {
+        return weight1 != null && weight1.equals(weight2);
+    }
+
+    public static boolean demonstrateWeightComparison(double value1, WeightUnit unit1,double value2, WeightUnit unit2) {
+        Weight weight1=new Weight(value1,unit1);
+        Weight weight2=new Weight(2,unit2);
+        return weight1.equals(weight2);
+    }
+
+    public static Weight demonstrateWeightConversion(double value,WeightUnit fromUnit, WeightUnit toUnit) {
+        Weight weight=new Weight(value,fromUnit);
+        return weight.convertTo(toUnit);
+    }
+
+    public static Weight demonstrateWeightConversion(Weight weight, WeightUnit toUnit) {
+        if (weight == null || toUnit == null) {
+            throw new IllegalArgumentException("weight and target unit are required");
+        }
+        return weight.convertTo(toUnit);
+    }
+    /**
+     * Demonstrate addition of second Weight to first Weight.
+     */
+    public static Weight demonstrateWeightAddition(Weight weight1, Weight weight2) {
+        if (weight1 == null || weight2 == null) {
+            throw new IllegalArgumentException("Both weight are required");
+        }
+        return weight1.add(weight2); // result in unit of first operand
+    }
+
+    public static Weight demonstrateWeightAddition(Weight weight1, Weight weight2, WeightUnit targetUnit) {
+        if (weight1 == null || weight2 == null || targetUnit == null) {
+            throw new IllegalArgumentException("Both weight are required");
+        }
+        return weight1.add(weight2,targetUnit);
+    }
+    /* Length Measurement Application Method.*/
     public static boolean demonstrateLengthEquality(Length length1, Length length2) {
         return length1 != null && length1.equals(length2);
     }
